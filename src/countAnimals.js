@@ -1,5 +1,4 @@
-const data = require("../data/zoo_data");
-// TODO
+const data = require('../data/zoo_data');
 
 const countTotal = () => {
   const res = {};
@@ -8,8 +7,6 @@ const countTotal = () => {
   });
   return res;
 };
-
-// console.log(countTotal());
 
 const contIndividual = (animal) => {
   const key = Object.values(animal)[0];
@@ -29,17 +26,14 @@ const constSexAnimal = (animal) => {
     }, 0);
 };
 
-// console.log(constSexAnimal({ specie: "penguins", sex: "male" }));
-
 function countAnimals(animal) {
   if (animal === undefined) {
     return countTotal();
-  } if (Object.keys(animal)[1] === 'sex') {
-		return constSexAnimal(animal);
-	}
+  }
+  if (Object.keys(animal)[1] === 'sex') {
+    return constSexAnimal(animal);
+  }
   return contIndividual(animal);
 }
-
-// console.log(countAnimals({ specie: "penguins", sex: "male" }));
 
 module.exports = countAnimals;
