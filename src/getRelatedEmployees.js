@@ -1,5 +1,5 @@
 const data = require('../data/zoo_data');
-
+// TODO
 function isManager(id) {
   const res = data.employees.find((employe) => employe.id === id).managers.length;
   if (res === 0) {
