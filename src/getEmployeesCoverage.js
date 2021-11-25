@@ -1,7 +1,5 @@
 const data = require('../data/zoo_data');
-
-function getEmployeesCoverage() {
-  // seu código aqui
-}
+// TODO
+function getEmployeesCoverage() {}
 
 module.exports = getEmployeesCoverage;
