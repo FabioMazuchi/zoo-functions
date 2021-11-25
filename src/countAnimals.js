@@ -16,13 +16,14 @@ const contIndividual = (animal) => {
 const constSexAnimal = (animal) => {
   const anim = Object.values(animal)[0];
   const sex = Object.values(animal)[1];
+  let total = 0;
   return data.species
     .find((specie) => specie.name === anim)
     .residents.reduce((acc, resident) => {
       if (resident.sex === sex) {
-        acc += 1;
+        total += 1;
       }
-      return acc;
+      return total;
     }, 0);
 };
 
