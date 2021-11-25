@@ -25,22 +25,26 @@ function countEntrants(entrants) {
   if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
   }
-  return entrants.reduce(
-    (acc, entrant) => countIdade(acc, entrant), { child: 0, adult: 0, senior: 0 },
-  );
+  return entrants.reduce((acc, entrant) => countIdade(acc, entrant), {
+    child: 0,
+    adult: 0,
+    senior: 0,
+  });
 }
 
 // console.log(countEntrants());
 
 function calculateEntry(entrants) {
   const v = countEntrants(entrants);
+  const d = data.prices;
   if (v === 0) {
     return 0;
   }
   return (
-    (data.prices.adult * v.adult) + (data.prices.senior * v.senior) + (data.prices.child * v.child));
+    d.adult * v.adult + d.senior * v.senior + d.child * v.child
+  );
 }
 
-console.log(calculateEntry({}));
+// console.log(calculateEntry({}));
 
 module.exports = { calculateEntry, countEntrants };
