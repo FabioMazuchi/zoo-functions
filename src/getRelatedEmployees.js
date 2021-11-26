@@ -1,5 +1,4 @@
 const data = require('../data/zoo_data');
-// TODO
 
 function isManager(id) {
   return data.employees.some((pessoa) => pessoa.managers.includes(id));
