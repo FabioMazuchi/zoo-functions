@@ -1,9 +1,26 @@
-const data = require("../data/zoo_data");
+const data = require('../data/zoo_data');
 // TODO
+
+const getHours = (day) => {
+  if (day === 'Monday') {
+    return 'CLOSED';
+  }
+  return `Open from ${data.hours[day].open}am until ${data.hours[day].close}pm`;
+};
+
+const getAnimals = (day) => {
+  if (day === 'Monday') {
+    return 'The zoo will be closed!';
+  }
+  return data.species
+    .filter((specie) => specie.availability.includes(day))
+    .map((animal) => animal.name);
+};
+
 const info = () => {
   const days = Object.keys(data.hours);
-  let obj = {};
-  for (let i = 0; i < days.length; i++) {
+  const obj = {};
+  for (let i = 0; i < days.length; i += 1) {
     obj[days[i]] = {
       officeHour: getHours(days[i]),
       exhibition: getAnimals(days[i]),
@@ -12,44 +29,36 @@ const info = () => {
   return obj;
 };
 
-const individualObj = (day) => {
+const individualDay = (day) => {
   const obj = {};
   obj[day] = info()[day];
   return obj;
 };
 
-const getAnimals = (day) => {
-  if (day === "Monday") {
-    return "The zoo will be closed!";
-  }
-  return data.species
-    .filter((specie) => specie.availability.includes(day))
-    .map((animal) => animal.name);
+const individualAnimal = (animal) =>
+  data.species.find((specie) => specie.name === animal).availability;
+
+const checkDays = (day) => {
+  const check = Object.keys(data.hours).includes(day);
+  return check;
 };
 
-const getHours = (day) => {
-  if (day === "Monday") {
-    return "CLOSED";
-  }
-  return `Open from ${data.hours[day].open}am until ${data.hours[day].close}pm`;
+const checkAnimal = (animal) => {
+  const check = data.species.some((specie) => specie.name === animal);
+  return check;
 };
 
 function getSchedule(scheduleTarget) {
-  if (!checkAnimalDays(scheduleTarget) || scheduleTarget === undefined) {
-    return info();
+  const day = checkDays(scheduleTarget);
+  const animal = checkAnimal(scheduleTarget);
+
+  if (day === true) {
+    return individualDay(scheduleTarget);
   }
-  return individualObj(scheduleTarget);
+  if (animal === true) {
+    return individualAnimal(scheduleTarget);
+  }
+  return info();
 }
-
-const checkAnimalDays = (param) => {
-  const animals = data.species.some((specie) => specie.name === param);
-  const days = Object.keys(data.hours).includes(param);
-  if (animals === true || days === true) {
-    return true;
-  }
-  return false;
-};
-
-// console.log(getSchedule('Tuesday'));
 
 module.exports = getSchedule;
