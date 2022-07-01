@@ -1,17 +1,18 @@
-const data = require('../data/zoo_data');
+const data = require("../data/zoo_data");
 // TODO
 
-// const addLocalSpecie = (local) => {
-//   const array = [];
-//   return data.species
-//     .filter((specie) => specie.location === local)
-//     .reduce((acc, spec) => {
-//       array.push(spec.name);
-//       acc[local] = array;
-//       return acc;
-//     }, {});
-// }}
+function getAnimalMap({prop = 'location'}) {
+  // const { sex: location } = prop;
+  return data.species.reduce((acc, specie) => {
+    const key = specie[prop];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(specie.name);
+    return acc;
+  }, {});
+}
 
-function getAnimalMap(options) {}
+console.log(getAnimalMap({}));
 
 module.exports = getAnimalMap;

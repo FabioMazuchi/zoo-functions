@@ -1,5 +1,4 @@
 const data = require('../data/zoo_data');
-// TODO
 
 const getHours = (day) => {
   if (day === 'Monday') {
